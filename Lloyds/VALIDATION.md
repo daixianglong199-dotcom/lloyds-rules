@@ -1,57 +1,70 @@
-# 检查与发布记录
+# Lloyds 核心与扩展：检查和发布记录
 
-检查日期：2026-10-23（Europe/London）。本项目只新增独立 `lloyds-rules` 目录，不修改 Kraken、WorldFirst 或任何本地 Loon 配置。对开始任务时的 **3,767 个已有文件**逐一复核 SHA-256，变化数为 **0**。
+日期：2026-10-23（Europe/London）。本轮只更新现有 daixianglong199-dotcom/lloyds-rules，基线提交为 [6a6d29835e1024caa021f6f80ee6e3f2025b9ca4](https://github.com/daixianglong199-dotcom/lloyds-rules/commit/6a6d29835e1024caa021f6f80ee6e3f2025b9ca4)。不新建仓库、不修改其他项目或本地 Loon 配置。
 
-## 静态检查
+## 实际执行的静态验证
 
-执行：在仓库根目录运行 `node validate.mjs`，结果 PASS。
+在仓库根目录运行 `node validate.mjs`，结果 PASS。按照 [Loon 域名规则](https://nsloon.app/docs/Rule/domain_rule/) 和 [官方配置示例](https://github.com/Loon0x00/LoonExampleConfig/blob/master/example.conf) 检查两个文件单独及合并语法；这不是运行 Loon 或完成银行登录。
 
 | 项目 | 结果 |
 | --- | --- |
-| 正式规则 | 3 条，全部 DOMAIN-SUFFIX，UTF-8 无 BOM |
-| 重复/后缀冗余 | 0 / 0 |
-| 第三方共享后缀 | 0 |
-| 其他银行/App 自有域名 | 0 |
-| 策略名、关键词、进程、UA、IP 规则 | 0 |
-| 候选 | 4 个审核对象，候选文件 0 条可执行行 |
-| GitHub 文件证据 | 10 个固定提交文件，另读取 AdGuard 说明及域名清单、Loon 官方示例 |
-| 校验器自检 | 35 个正反例检查，包含共享后缀、重复、后缀覆盖、仿冒拼接和不支持语法 |
-| 初始正式文件 SHA-256 | `1f1e1523e4280b1c1ef2823722bd7887e0d46972a15de077b616bbdb282fe785` |
+| 核心规则 | 3 条 DOMAIN-SUFFIX，覆盖范围兼容原版；更新注释及 API/扩展指引 |
+| 可选扩展 | 4 条：1 个银行 CDN 子后缀 + 3 个具体服务主机 |
+| 合并后 | 4 个独立后缀匹配、3 个精确主机匹配，共 7 条 |
+| 重复/后缀覆盖冗余 | 0 / 0，合并检查也通过 |
+| 整个集团根后缀 | 0，改用 CDN 子树及具体交付主机 |
+| 供应商共享根后缀 | 0，禁止 Dynatrace/Amazon Trust/Online Metrix/Adobe 等整个服务后缀 |
+| 其他银行/App 自有域名 | 0；集团 CDN/租户可能跨品牌，不能按 App 完全隔离 |
+| 策略名、UA、进程、关键词、IP 写入规则文件 | 0 |
+| 候选隔离 | 8 个候选，候选文件全部注释，两个订阅均不会命中候选 |
+| 校验器正反例 | 45 个，覆盖拼接仿冒、精确主机边界、CDN 子树边界、共享后缀、重复及语法错误 |
+| 来源 | 实际读取 20 个固定提交 GitHub 文件，另读取 3 个问题及全部评论、官方技术文档与公开页面 |
+| 完整审计清单 | 65 个去重条目，涉及 17 个可注册域名；26 核心 + 10 扩展新增 + 8 候选 + 21 排除/根域限定 |
+| 统计一致性 | 校验器从规则重算并逐项验证 coverage-summary.json 和 sources.json 标记 |
+| iOS 实机验证 | 0；公开 Apple/AASA 关联、银行网页请求和 Android 报告分开标注 |
 
-语法依据 [Loon 域名规则](https://nsloon.app/docs/Rule/domain_rule/) 和 [官方配置示例](https://github.com/Loon0x00/LoonExampleConfig/blob/master/example.conf)。这是静态检查，**不是 iOS Loon 运行测试或真实银行业务验证**。
+两文件均 UTF-8 无 BOM，策略名称只出现在远程订阅示例中。
 
-主机比较工具完全离线，只接受经人工审查的纯主机名单。工具不自动写入规则；缺少 iOS 版本/业务阶段的记录时，不能将“未覆盖”视为“必须添加”。基础凭据扫描不代表完整隐私保证。
+| 文件 | SHA-256 |
+| --- | --- |
+| Lloyds-UK.list | `b170efbd1a8913672dec20842eecb5163949a5feab7a5955130c4fc40e168867` |
+| Lloyds-UK-Extended.list | `24edc75c0dc8d5938d5be75f1cfe01756e74bc09700e72d9b3f55f27bac8f2dd` |
 
-## GitHub 身份与发布状态
+## 增量比较工具集成检查
 
-- GitHub 连接器已核实：`lonng6`。没有改向此账号创建或提交仓库。
-- Chrome 网页用户菜单及创建仓库表单已核实：`daixianglong199-dotcom`。已由该账号创建正确的公开仓库并向 `main` 提交本任务文件，网页提交证明具备实际写权限。
-- 本地已初始化独立仓库，主分支 `main`，远程 `origin` 指向 `https://github.com/daixianglong199-dotcom/lloyds-rules.git`。
-- **已发布**：使用该账号的 GitHub 网页编辑器提交，未使用 `lonng6` 写入。系统 Git 没有可用推送凭据，禁用交互的 `git push` 尝试失败；因此不声称命令行推送成功。没有导出网页 Cookie、创建 Token 或扩大浏览器扩展权限。
-- 网页批量文件上传因扩展未获本地文件 URL 访问权限而不可用，改用标准网页编辑器逐文件提交。每次提交仅涉及本项目文件，未改动其他仓库。
-- 初始正式规则提交：[2f930ef0561f4d37f8a76bcc8727836857b896e7](https://github.com/daixianglong199-dotcom/lloyds-rules/commit/2f930ef0561f4d37f8a76bcc8727836857b896e7)。该提交可用作固定版本或回滚参照。
-- 本地初始提交 `09e5096` 及后续准备记录保留在 `codex/local-pre-web-publication` 分支；本地 `main` 对齐实际远程网页提交历史，不强推、不删除历史。
+使用纯合成主机名单执行 `--hosts`：确认核心授权主机、CDN 与 Adobe 扩展主机、风险/未核实候选、已知开发门户和未知示例主机分别落入五种分类。测试完整 URL 输入被拒绝、不回显输入 URL，两个规则文件测试前后字节不变。没有使用或上传任何真实账户日志。
 
-已验证的目标文件与 Raw 地址：
+凭据/私钥基础模式扫描通过；研究工作文件全部存于被忽略的 private/，不提交网页原文、响应 Cookie、原始日志、Token、账户或卡号。
+
+## 原配置策略检查
+
+只读检查原有 Loon-Main.lcf 和 Loon-Main.GitHub.lcf，两者第 50 行都有 `Kraken英国固定 = select,英国节点`。对应 `英国节点` 筛选已存在。生成 [Loon-RemoteRule.example.conf](Loon-RemoteRule.example.conf)，两条真实 Raw URL 都绑定这个现有策略，未使用策略占位符，也未编辑上述配置文件。
+
+该组与 Kraken 共用；修改组内选择会同时影响引用它的服务。没有访问手机的实际运行状态，不能保证当前所选节点确在英国，也不能保证现有拦截规则已放行所有安全请求。
+
+## 发布状态
+
+已通过 **daixianglong199-dotcom 的 GitHub 网页会话**提交更新到现有仓库 main。GitHub 连接器账号仍为 lonng6，未使用它写入。系统 Git 非交互推送因缺少可用凭据失败，因此不声称命令行 git push 成功；本轮采用标准网页编辑器发布后，通过匿名公开 Git 拉取同步历史。
+
+本地研究提交 40cca78 及最终记录保留在 codex/local-before-extension-publication 分支；main 对齐实际远程提交。只提交 11 个任务相关修改/新增文件，完整仓库为 13 个跟踪文件，没有新建其他仓库，没有强推、导出 Cookie、创建 Token 或扩大浏览器权限。
+
+2026-10-23 **15:01 BST（14:01 UTC）**，匿名 GET 核对本报告以外全部 **12 个文件**，均为 HTTP 200，且与本地逐字节一致；包含核心、扩展、示例配置、来源、审计和校验工具。规则 SHA-256 与上表一致。本报告发布后，再执行完整 13 文件核对及本地/远程 Git tree 一致性检查。
+
+对工作目录中本项目之外的 **3,767 个已有文件**重新计算 SHA-256，变化数 **0**。包含原 Loon 配置及 Kraken、WorldFirst 项目；没有上传这些文件。
+
+可用订阅地址：
 
 ```text
-https://github.com/daixianglong199-dotcom/lloyds-rules/blob/main/Lloyds/Lloyds-UK.list
 https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list
+https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK-Extended.list
 ```
 
-2026-10-23 14:29 BST（13:29 UTC），使用匿名 HTTPS GET 检查正式 Raw：**HTTP 200**，`text/plain; charset=utf-8`，**393 字节**，SHA-256 为上表值，和本地文件逐字节一致。随后复核本报告以外的全部 9 个文件，均 HTTP 200 且逐字节一致；报告发布后再次做完整仓库核对。
+后续命令行写入需要在系统正常登录 daixianglong199-dotcom 的 Git Credential Manager 或 GitHub CLI；不要把凭据放入 URL、配置或仓库。网页提交已完成发布，不能把本地备份提交直接强推覆盖网页历史。
 
-本报告和 GitHub 全部文件地址均位于上述独立仓库。可使用公开 Git 的 fetch 拉取实际历史；后续命令行写入仍需要以 `daixianglong199-dotcom` 正常登录 Git Credential Manager 或 GitHub CLI。
+原版公开发布已保存在基线提交中；核心订阅路径继续兼容。新增扩展文件为可选增量，不将候选自动合并。每次提交只包含本任务文件，历史可回滚。
 
-若后续需要从命令行更新：
+## 仍需设备端验证
 
-1. 使用已有公开仓库 `daixianglong199-dotcom/lloyds-rules`，不要重新创建或改向其他账号。
-2. 使用系统 Git Credential Manager 或 GitHub CLI 的正常交互登录同一账号，不把凭据放入命令、URL 或文件。
-3. 在本地独立仓库根目录先 `git pull --ff-only`，修改后运行 `node validate.mjs`、`git diff --check`，只提交审查过的任务文件，再执行 `git push origin main`。不要强推。
-4. 匿名 GET Raw URL，必须 HTTP 200，且下载内容与本地正式文件逐字节或 SHA-256 一致；再导入 Loon。
+没有实际登录、账户查询、卡管理、交易记录的当前 iOS 连接日志，因此不声称完整覆盖或 iOS 认证已经通过。h-lloydsbank.online-metrix.net 保留候选；其他共享服务、被撤回的故障报告和沙箱主机不强制加入。
 
-## 尚未完成的实机验证
-
-登录、账户查询、银行卡管理、交易记录的完整网络覆盖仍待用户设备上的 Loon 请求记录验证。认证、反欺诈、证书检查是否被现有配置误拦截也未验证；本项目未改变它们的请求内容、目标和验证流程。
-
-不抓取、不提交 Cookie、Token、卡号、账号、请求体或身份信息。增量方法与脱敏边界见 [README](README.md)。
+后续按 [README](README.md) 的纯主机名方式增量比对，先验证阶段归因，再核实归属和共享性。不得上传或提交 Cookie、Token、账户/银行卡资料、请求体或个人身份信息；不需要 MITM 或解除设备安全限制。
