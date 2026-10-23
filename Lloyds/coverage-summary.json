@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-23",
+  "definition": "Unique reviewed FQDN strings, including rule bases, candidates and explicitly excluded service roots. This is a review inventory, not a native App dependency count.",
+  "inventory_fqdns": 65,
+  "reviewed_registrable_domains": 17,
+  "core_rules": 3,
+  "extension_rules": 4,
+  "independent_suffix_rules": 4,
+  "exact_host_rules": 3,
+  "covered_by_core": 26,
+  "additional_covered_by_extension": 10,
+  "uncovered_candidates": 8,
+  "excluded_or_scope_limited": 21,
+  "ios_runtime_verified": 0
+}
