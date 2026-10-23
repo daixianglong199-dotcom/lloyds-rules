@@ -1,10 +1,9 @@
-# Lloyds Bank UK - optional additive extension for Loon
-# Reviewed: 2026-10-23 | Active rules: 4
-# Use with Lloyds-UK.list; no duplicate core domains.
-# Evidence includes current public web/DNS and historical App reports.
-# iOS native runtime verification: NONE. See domain-audit.md.
-# Group CDN and tenant services may also be used by other group brands.
-DOMAIN,bf10006sbr.bf.dynatrace.com
+# DEPRECATED - frozen compatibility subset, not an official subscription entry
+# All 4 rules below are now included in Lloyds-UK.list (7 active rules).
+# Subscribe ONLY to Lloyds-UK.list; remove the old Extended subscription.
+# Preserved for old configurations; no independently maintained additions.
+# Evidence remains web/DNS/historical reports; iOS runtime verification: NONE.
 DOMAIN-SUFFIX,cdn.lloydsbanking.com
-DOMAIN,lloydsbankinggroup.tt.omtrdc.net
 DOMAIN,optimisation.data.lloydsbankinggroup.com
+DOMAIN,lloydsbankinggroup.tt.omtrdc.net
+DOMAIN,bf10006sbr.bf.dynatrace.com
