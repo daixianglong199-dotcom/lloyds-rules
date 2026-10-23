@@ -111,11 +111,21 @@ async function main() {
   const ruleText = await readFile(join(root, 'Lloyds', 'Lloyds-UK.list'), 'utf8');
   const rules = parseRules(ruleText);
   const extensionText = await readFile(join(root, 'Lloyds', 'Lloyds-UK-Extended.list'), 'utf8');
-  const extension = parseRules(extensionText);
-  const combined = parseRules([...rules, ...extension].map(r => `${r.type},${r.domain}`).join('\n'));
+  const compatibility = parseRules(extensionText);
+  assert(extensionText.startsWith('# DEPRECATED'), 'Compatibility file must be explicitly deprecated');
+  const combined = rules;
+  const required = ["DOMAIN-SUFFIX,lloydsbank.co.uk","DOMAIN-SUFFIX,lloydsbank.com","DOMAIN-SUFFIX,lloydsbank-online.co.uk","DOMAIN-SUFFIX,cdn.lloydsbanking.com","DOMAIN,optimisation.data.lloydsbankinggroup.com","DOMAIN,lloydsbankinggroup.tt.omtrdc.net","DOMAIN,bf10006sbr.bf.dynatrace.com"];
+  assert.deepEqual(rules.map(r => r.type+','+r.domain).sort(), [...required].sort(), 'Formal file must contain exactly the seven approved rules');
   const candidates = await readFile(join(root, 'Lloyds', 'candidates.list'), 'utf8');
   assert(activeLines(candidates).length === 0, 'Candidate file must contain comments only');
   const evidence = JSON.parse(await readFile(join(root, 'Lloyds', 'sources.json'), 'utf8'));
+  const core = rules.filter(r => evidence.domain_decisions.some(d => d.domain === r.domain && d.layer === 'core'));
+  const extension = rules.filter(r => evidence.domain_decisions.some(d => d.domain === r.domain && d.layer === 'extension'));
+  assert.equal(core.length, 3, 'Expected three core-provenance rules');
+  assert.equal(extension.length, 4, 'Expected four extension-provenance rules');
+  assert.deepEqual(compatibility.map(r=>r.type+','+r.domain).sort(), extension.map(r=>r.type+','+r.domain).sort(), 'Deprecated compatibility file must equal the frozen extension-origin subset');
+  assert.equal(evidence.subscription.formal_file, 'Lloyds/Lloyds-UK.list');
+  assert.equal(evidence.subscription.formal_rule_count, rules.length);
   const sourceIds = new Set([...evidence.github_sources, ...evidence.official_sources,
     ...evidence.public_issue_sources, evidence.dns_observations].map(s => s.id));
   assert(new Set(evidence.domain_decisions.map(d => d.domain)).size === evidence.domain_decisions.length,
@@ -125,13 +135,14 @@ async function main() {
     assert(decision.sources.length && decision.sources.every(id => sourceIds.has(id)), 'Missing evidence reference');
     assert(typeof decision.ios_tested === 'boolean', 'Every review object needs an iOS verification flag');
     if (decision.ios_tested) assert(decision.ios_evidence, 'iOS verification needs explicit evidence');
-    assert.equal(decision.core_covered, matching(rules, decision.domain), 'Stale core coverage flag');
+    assert.equal(decision.core_covered, matching(core, decision.domain), 'Stale core coverage flag');
     assert.equal(decision.extension_covered, matching(extension, decision.domain), 'Stale extension coverage flag');
+    assert.equal(decision.formal_covered, matching(rules, decision.domain), 'Stale formal coverage flag');
   }
   const approved = evidence.domain_decisions.filter(d => d.decision === 'formal');
   assert.deepEqual(rules.map(r => `${r.type},${r.domain}`).sort(),
     approved.map(d => `${d.rule_type},${d.domain}`).sort(), 'Formal rules and reviewed evidence differ');
-  const extensionApproved = evidence.domain_decisions.filter(d => d.decision === 'extension');
+  const extensionApproved = evidence.domain_decisions.filter(d => d.decision === 'formal' && d.layer === 'extension');
   assert.deepEqual(extension.map(r => `${r.type},${r.domain}`).sort(),
     extensionApproved.map(d => `${d.rule_type},${d.domain}`).sort(), 'Extension rules and evidence differ');
   for (const domain of ['lloydsbankinggroup.com', 'lloydsbanking.com', 'lloydsbank.info',
@@ -144,18 +155,20 @@ async function main() {
     assert(matching(rules, host), 'Expected official hostname is not covered');
   }
   for (const d of evidence.domain_decisions.filter(d => d.decision === 'candidate')) {
-    assert(!matching(combined, d.domain), 'Candidate must not enter either subscription');
+    assert(!matching(combined, d.domain), 'Candidate must not enter the formal subscription');
   }
   const summary = JSON.parse(await readFile(join(root, 'Lloyds', 'coverage-summary.json'), 'utf8'));
   const reviewedRegistrable = d => d.endsWith('.co.uk') ? d.split('.').slice(-3).join('.') : d.split('.').slice(-2).join('.');
   const expectedSummary = {
     inventory_fqdns: evidence.domain_decisions.length,
     reviewed_registrable_domains: new Set(evidence.domain_decisions.map(d => reviewedRegistrable(d.domain))).size,
-    core_rules: rules.length, extension_rules: extension.length,
+    formal_subscription_count: 1, formal_rules: rules.length,
+    covered_by_formal: evidence.domain_decisions.filter(d => matching(rules,d.domain)).length,
+    core_rules: core.length, extension_rules: extension.length,
     independent_suffix_rules: combined.filter(r => r.type === 'DOMAIN-SUFFIX').length,
     exact_host_rules: combined.filter(r => r.type === 'DOMAIN').length,
-    covered_by_core: evidence.domain_decisions.filter(d => matching(rules, d.domain)).length,
-    additional_covered_by_extension: evidence.domain_decisions.filter(d => !matching(rules,d.domain) && matching(extension,d.domain)).length,
+    covered_by_core: evidence.domain_decisions.filter(d => matching(core, d.domain)).length,
+    additional_covered_by_extension: evidence.domain_decisions.filter(d => !matching(core,d.domain) && matching(extension,d.domain)).length,
     uncovered_candidates: evidence.domain_decisions.filter(d => !matching(combined,d.domain) && d.decision === 'candidate').length,
     excluded_or_scope_limited: evidence.domain_decisions.filter(d => !matching(combined,d.domain) && d.decision !== 'candidate').length,
     ios_runtime_verified: evidence.domain_decisions.filter(d => d.ios_tested).length,
@@ -164,13 +177,15 @@ async function main() {
   assert.equal(summary.covered_by_core + summary.additional_covered_by_extension + summary.uncovered_candidates + summary.excluded_or_scope_limited,
     summary.inventory_fqdns, 'Inventory coverage partitions must sum to total');
   const example = await readFile(join(root, 'Lloyds', 'Loon-RemoteRule.example.conf'), 'utf8');
-  const expectedUrls = ['Lloyds-UK.list', 'Lloyds-UK-Extended.list'].map(name =>
+  const expectedUrls = ['Lloyds-UK.list'].map(name =>
     `https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/${name}`);
   const subscriptionLines = activeLines(example).filter(row => !row.text.startsWith('[')).map(row => row.text);
-  assert.equal(subscriptionLines.length, 2, 'Expected core and optional extension subscription examples');
+  assert.equal(subscriptionLines.length, 1, 'Expected exactly one formal subscription example');
+  assert.equal(evidence.subscription.raw_url, expectedUrls[0]);
+  assert.equal(evidence.subscription.policy, 'Kraken英国固定');
   for (let i = 0; i < subscriptionLines.length; i++) {
     assert(subscriptionLines[i].startsWith(expectedUrls[i] + ','), 'Incorrect subscription URL');
-    assert(/, policy=Kraken英国固定, tag=Lloyds-UK(?:-Extended)?, enabled=true$/.test(subscriptionLines[i]),
+    assert(/, policy=Kraken英国固定, tag=Lloyds-UK, enabled=true$/.test(subscriptionLines[i]),
       'Example must use the verified existing UK policy');
   }
   for (const file of await walk(root)) {
@@ -182,14 +197,15 @@ async function main() {
     assert(!sensitive.test(content), `Potential credentials in ${relative(root, file)}`);
   }
   const candidateDomains = evidence.domain_decisions.filter(d => d.decision === 'candidate').map(d => d.domain);
-  console.log(JSON.stringify({ status: 'PASS', core_rule_count: rules.length, extension_rule_count: extension.length,
+  console.log(JSON.stringify({ status: 'PASS', formal_rule_count: rules.length, core_provenance_count: core.length, extension_provenance_count: extension.length,
+    deprecated_compatibility_count: compatibility.length, formal_subscription_count: 1,
     combined_rule_count: combined.length, coverage: expectedSummary,
     types: [...new Set(combined.map(r => r.type))], candidate_count: candidateDomains.length,
     candidate_executable_lines: 0, github_files_read: evidence.github_sources.length,
     fixture_checks: fixtureChecks, duplicate_rules: 0, redundant_rules: 0,
     shared_suffix_rules: 0, unrelated_app_rules: 0,
-    sha256: {core:createHash('sha256').update(ruleText).digest('hex'),
-      extension:createHash('sha256').update(extensionText).digest('hex')},
+    sha256: {formal:createHash('sha256').update(ruleText).digest('hex'),
+      deprecated_compatibility:createHash('sha256').update(extensionText).digest('hex')},
     limitations: ['Offline static validation; not the Loon runtime or live App testing',
       'Credential scanning is a basic check, not a privacy guarantee'] }, null, 2));
   if (args.length) {
@@ -205,12 +221,12 @@ async function main() {
     }
     const result = { core_covered: [], extension_covered: [], candidates: [], known_unrouted: [], unclassified: [] };
     for (const host of [...new Set(hosts)].sort()) {
-      const category = matching(rules, host) ? 'core_covered' : matching(extension, host) ? 'extension_covered'
+      const category = matching(core, host) ? 'core_covered' : matching(extension, host) ? 'extension_covered'
         : candidateDomains.includes(host) ? 'candidates'
         : evidence.domain_decisions.some(d=>d.domain===host) ? 'known_unrouted' : 'unclassified';
       result[category].push(host);
     }
-    console.log(JSON.stringify({ hostname_comparison: result, rules_modified: false, network_requests: 0 }, null, 2));
+    console.log(JSON.stringify({ hostname_comparison: result, coverage_labels: 'core_covered and extension_covered are evidence layers within the same formal subscription', rules_modified: false, network_requests: 0 }, null, 2));
   }
 }
 
