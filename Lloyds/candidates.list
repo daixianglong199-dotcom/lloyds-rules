@@ -1,12 +1,13 @@
 # REVIEW ONLY - DO NOT SUBSCRIBE - NO EXECUTABLE RULES
-# All entries are comments. Promotion requires an evidence review and a
-# separate manual change to Lloyds-UK.list and sources.json.
-# Reviewed: 2026-10-23
-#
-# A | lloydsbankinggroup.com | Official group domain; personal App need and exclusivity unconfirmed.
-# A | lloydsbanking.com | Official email domain; personal App dependency unconfirmed.
-# B | lloydsbank.info | Ownership/use unverified; appears in a brand anti-phishing pattern list.
-# C | h-lloydsbank.online-metrix.net | Public CNAME association with check2.lloydsbank.co.uk; iOS direct use unconfirmed.
-#
-# Shared service suffixes and corporate/other-bank hosts are excluded,
-# not pending executable rules. See domain-audit.md for their evidence.
+# Reviewed: 2026-10-23 | Candidates: 8
+# No automatic promotion. Evidence and reasons: domain-audit.md, sources.json.
+# A | analytics.data.lloydsbankinggroup.com | Group analytics alias; no present iOS business necessity
+# C | h-lloydsbank.online-metrix.net | CNAME 数据显示对应 check2.lloydsbank.co.uk；尚无个人 iOS App 直接请求/必要性证据。
+# B | lloydsbank.info | 归属/用途未获官方证实；另在品牌防钓鱼模式列表出现，不能仅凭名单定性恶意。
+# C | lloydsbankinggroup.d3.sc.omtrdc.net | Analytics host in subsequently retracted multi-host App report
+# C | lp-01.asynchronousmessaging.dashboard.co.uk | Group web chat/messaging resource; shared across brands, no iOS-specific proof
+# C | lp-07.asynchronousmessaging.dashboard.co.uk | Group web chat/messaging resource; shared across brands, no iOS-specific proof
+# C | lpcdn.asynchronousmessaging.dashboard.co.uk | Group web chat/messaging resource; shared across brands, no iOS-specific proof
+# C | zn3wyma4xs4oqh2ct-lloydsbankinggroup.siteintercept.qualtrics.com | Survey/intercept host in subsequently retracted report; necessity disputed
+# Group root suffixes are not candidates for automatic inclusion; reviewed
+# CDN/delivery scope is explicitly listed in Lloyds-UK-Extended.list.
