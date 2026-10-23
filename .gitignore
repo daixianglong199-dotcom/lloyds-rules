@@ -1,0 +1,14 @@
+# Local request data and credentials must never be committed.
+private/
+logs/
+*.log
+*.har
+*.pcap
+*.pcapng
+*.lcf
+*.p12
+*.pem
+*.key
+.env
+.env.*
+hosts.local.txt
