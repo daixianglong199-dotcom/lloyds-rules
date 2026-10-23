@@ -1,4 +1,4 @@
-# Lloyds Bank 核心与扩展域名审计
+# Lloyds Bank 统一正式规则：域名审计
 
 日期：2026-10-23（Europe/London）。本轮更新现有仓库；未创建新仓库。上一版结论缺少对真实 API、CDN、网页辅助服务和 App 故障记录的区分，本轮按用途与证据层级重新审查。
 
@@ -14,7 +14,7 @@
 | 故意不匹配的排除/集团根域 | 21 |
 | 合计 | 65 |
 
-生效表达式为核心 3 条、扩展 4 条；合并后 4 条互不覆盖的 DOMAIN-SUFFIX 与 3 条 DOMAIN。当前 0 个条目经过本项目 iOS 运行测试。统计由校验器从真实规则和完整清单重算，见 [coverage-summary.json](coverage-summary.json)。
+唯一正式订阅 Lloyds-UK.list 包含 7 条：核心来源 3 条、扩展来源 4 条，共 4 条互不覆盖的 DOMAIN-SUFFIX 与 3 条 DOMAIN。旧 Extended 文件只是弃用兼容子集，不计入规则总数。合并只改变发布组织，不新增域名或提升证据可信度。当前 0 个条目经过本项目 iOS 运行测试。统计由校验器从真实规则和完整清单重算，见 [coverage-summary.json](coverage-summary.json)。
 
 ## 已确认业务入口与已有覆盖
 
@@ -28,8 +28,8 @@ Apple 查询返回个人 App bundle ID `com.lloydstsb.LloydsTSB`、版本 `195.0
 
 | 对象 | 新证据 | 本轮决定 |
 | --- | --- | --- |
-| lloydsbanking.com | 登录、网站、授权、OIDC 和两个 API 域名的当前 CNAME 指向其 CDN 子树 | 不是仅邮件域。扩展加入 cdn.lloydsbanking.com 子后缀，覆盖 6 个记录中的目标；不加入整个集团根后缀。 |
-| lloydsbankinggroup.com | R6 爬虫记录个人网银发往 optimisation.data 子域的请求；R4 也有该主机 | 扩展仅纳入 optimisation.data 精确主机。集团门户、招聘等不扩入。 |
+| lloydsbanking.com | 登录、网站、授权、OIDC 和两个 API 域名的当前 CNAME 指向其 CDN 子树 | 不是仅邮件域。正式文件纳入扩展来源的 cdn.lloydsbanking.com 子后缀，覆盖 6 个记录中的目标；不加入整个集团根后缀。 |
+| lloydsbankinggroup.com | R6 爬虫记录个人网银发往 optimisation.data 子域的请求；R4 也有该主机 | 正式文件仅纳入 optimisation.data 精确主机。集团门户、招聘等不扩入。 |
 | analytics.data.lloydsbankinggroup.com | R4 名单和当前 CNAME 证明网页统计关联 | 仍为候选；缺少个人原生业务必要性，未与 optimisation 混同。 |
 
 CDN 别名的对应关系由 D2 记录：
@@ -49,8 +49,8 @@ DNS 只证明时间点关联。按原始主机匹配时，别名目标未必需�
 
 | 主机/对象 | 采用证据 | 决定与限制 |
 | --- | --- | --- |
-| lloydsbankinggroup.tt.omtrdc.net | R10 精确维护例外，R11 Android 设备认证故障和 R12 单主机恢复报告；D2 从银行 optimisation 别名指向它 | 加入可选扩展，精确匹配。报告年代为 2024，R11 后续还讨论服务器修复部署问题；不宣称因果在当前 iOS 已成立。 |
-| bf10006sbr.bf.dynatrace.com | O10 当前银行登录 HTML 的 script 引用；R8 为网页行为交叉线索 | 加入可选扩展，只匹配这个租户主机。R8 的其他租户不能据统计池外推为 Lloyds 依赖。 |
+| lloydsbankinggroup.tt.omtrdc.net | R10 精确维护例外，R11 Android 设备认证故障和 R12 单主机恢复报告；D2 从银行 optimisation 别名指向它 | 纳入正式文件（扩展来源，iOS 未实测），精确匹配。报告年代为 2024，R11 后续还讨论服务器修复部署问题；不宣称因果在当前 iOS 已成立。 |
+| bf10006sbr.bf.dynatrace.com | O10 当前银行登录 HTML 的 script 引用；R8 为网页行为交叉线索 | 纳入正式文件（扩展来源，iOS 未实测），只匹配这个租户主机。R8 的其他租户不能据统计池外推为 Lloyds 依赖。 |
 | h-lloydsbank.online-metrix.net | S5/R3 的 CNAME 表和当前 DNS；R5 通用 smartphone 名单 | 仍为候选。通用手机名单不是 Lloyds iOS 测试，CNAME 不能证明 App 直接访问目标；check2 银行别名已被核心覆盖。 |
 | lloydsbankinggroup.d3.sc.omtrdc.net、Qualtrics 候选 | R13 初始多主机报告 | 报告随后被作者撤回为 false alarm；不按初始描述加入扩展。 |
 | 三个 dashboard.co.uk messaging 主机 | R7 记录多个集团品牌网页请求 | 作为聊天/消息候选保留，不能证明个人 iOS 依赖。 |
@@ -117,7 +117,7 @@ O9 通过网页读取器成功读取，Node 直连返回 500，未将 500 当作
 
 ## 完整去重清单：哪些覆盖、哪些未覆盖
 
-表中“扩展”指核心之外新增匹配；CDN 子树本身是规则基域，非声称实测请求。“候选”和“不订阅”均未自动转入规则；未被订阅不表示拒绝。
+表中“核心”和“扩展”均由同一个正式文件覆盖，标签仅表示原证据层级；“扩展”指核心来源之外新增匹配；CDN 子树本身是规则基域，非声称实测请求。“候选”和“不订阅”均未自动转入规则；未被订阅不表示拒绝。
 
 | 域名/主机 | 类别 | 当前覆盖 | 用途/判定 | 证据 | 可信度 | iOS 实测 |
 | --- | --- | --- | --- | --- | --- | --- |
@@ -155,8 +155,8 @@ O9 通过网页读取器成功读取，Node 直连返回 500，未将 500 当作
 | `lloydsbank.co.uk` | A | 核心 | 官方个人银行/授权命名空间 | S1, S2, S3, S4, S8, S9, O2 | high-ownership | 无 |
 | `lloydsbank.com` | A | 核心 | 官方个人银行/授权命名空间 | S1, S3, S4, S6, S8, O1 | high-ownership | 无 |
 | `lloydsbank.info` | B | 候选，未覆盖 | 归属/用途未获官方证实；另在品牌防钓鱼模式列表出现，不能仅凭名单定性恶意。 | S1, S10 | association-only | 无 |
-| `lloydsbanking.com` | A | 不订阅 | Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the extension; no blanket group suffix. | O5 | high-ownership | 无 |
-| `lloydsbankinggroup.com` | A | 不订阅 | Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the extension; no blanket group suffix. | S1, S3, O4 | high-ownership | 无 |
+| `lloydsbanking.com` | A | 不订阅 | Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the unified formal rule set; no blanket group suffix. | O5 | high-ownership | 无 |
+| `lloydsbankinggroup.com` | A | 不订阅 | Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the unified formal rule set; no blanket group suffix. | S1, S3, O4 | high-ownership | 无 |
 | `lloydsbankinggroup.d3.sc.omtrdc.net` | C | 候选，未覆盖 | Analytics host in subsequently retracted multi-host App report | R13 | low-retracted-report | 无 |
 | `lloydsbankinggroup.tt.omtrdc.net` | C | 扩展 | Adobe Target tenant implicated in bank App device-authentication availability | R10, R11, R12, D2 | medium-app-reported | 无 |
 | `logs-16c9d93d.lloydsbank.co.uk` | A | 核心 | Group web logging endpoint in crawler data; records shown on other group brands | R9 | medium-web-observed | 无 |
@@ -189,8 +189,8 @@ O9 通过网页读取器成功读取，Node 直连返回 500，未将 500 当作
 
 ## 边界、验证与后续
 
-不使用 PROCESS-NAME、USER-AGENT、关键词、未核实 IP、公共 co.uk/uk 后缀或 MITM。两集合不含策略名，只在配置示例中绑定已核实的 Kraken英国固定。不修改原配置、不改变银行安全流程，也不以屏蔽安全服务测试绕过。
+不使用 PROCESS-NAME、USER-AGENT、关键词、未核实 IP、公共 co.uk/uk 后缀或 MITM。正式及兼容规则文件不含策略名，只在配置示例中绑定已核实的 Kraken英国固定。不修改原配置、不改变银行安全流程，也不以屏蔽安全服务测试绕过。
 
-两文件合并没有重复或后缀冗余，候选和其他品牌自有域名不匹配。集团 CDN、交付/监控租户本身可能跨品牌：这是明确说明的可选扩展影响，不承诺按 App 隔离。核心原有后缀也可能覆盖商业和集团共用主机。
+正式文件 7 条没有重复或后缀冗余；兼容文件为其中 4 条的冻结副本，不应同时订阅，候选和其他品牌自有域名不匹配。集团 CDN、交付/监控租户本身可能跨品牌：这是明确说明的扩展来源规则的影响，不承诺按 App 隔离。核心原有后缀也可能覆盖商业和集团共用主机。
 
 真正未解决的是当前 iOS App 原生业务请求的实测归因：登录/设备验证、账户、卡管理、交易记录各阶段是否仍有未知主机。按 [README](README.md) 在本地观察并脱敏，再运行离线比较；原始日志、Cookie、Token、账号/卡号、请求体及个人信息不上传、不提交。静态结果不等于运行通过。
