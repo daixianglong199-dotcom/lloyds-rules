@@ -1,66 +1,81 @@
-# Lloyds Bank UK：iOS Loon 远程规则
+# Lloyds Bank UK：iOS Loon 核心与扩展规则
 
-将匹配的 Lloyds 域名交给你在 Loon 中指定的英国节点或策略组。正式文件共 **3 条 DOMAIN-SUFFIX**，不含策略名称。
+本项目在已有独立仓库内维护。把已匹配域名交给本地现有英国策略；不提供节点，不更改银行认证、设备安全检测、证书或请求内容。
 
-## 范围与证据
+## 两个订阅文件
 
-| 域名 | 用途证据 | 范围 |
+| 文件 | 规则数 | 用途 |
 | --- | --- | --- |
-| `lloydsbank.co.uk` | 官方登录入口 `online.lloydsbank.co.uk`；多份公开规则交叉验证 | 主域及全部层级子域 |
-| `lloydsbank.com` | 官方个人银行网站、App 说明、业务帮助入口 | 主域及全部层级子域 |
-| `lloydsbank-online.co.uk` | 官方反诈骗页面明确用于 Open Banking 授权跳转 | 主域及全部层级子域 |
+| [Lloyds-UK.list](Lloyds-UK.list) | 3 | 核心银行命名空间：`lloydsbank.co.uk`、`lloydsbank.com`、`lloydsbank-online.co.uk`。涵盖已确认的授权/OIDC/API 主机，无需逐主机重复添加。 |
+| [Lloyds-UK-Extended.list](Lloyds-UK-Extended.list) | 4 | 可选、仅增量：银行 CDN 子后缀和 3 个具体交付/监控主机。结合核心使用；没有经过本项目 iOS 实机业务验证。 |
 
-证据、版本及置信度见 [domain-audit.md](domain-audit.md) 和 [sources.json](sources.json)。域名官方归属不等于某一 App 版本的业务必要性；没有实机日志，不能保证登录、账户查询、银行卡管理、交易记录全部覆盖。
+扩展集是已审查的可选路由，不是候选清单；其证据允许明确的银行网页关联或历史 App 故障报告，但**不会将这些证据说成 iOS 必需性**。只接受核心证据范围时，仅启用核心行。需要较广辅助服务覆盖且接受集团共享范围时，再启用扩展行。
 
-规则按目标域名匹配，不能识别发起请求的 App。因此浏览器或 Monzo 等 App 若主动发起 Lloyds Open Banking 授权，同一 Lloyds 目标域名也会匹配。`lloydsbank.com` 下的商业银行、内容或统计子域也在后缀范围内。这里不承诺按 App 完全隔离；其他 App 自有域名及共享第三方根域未纳入。
+## 新增匹配范围
 
-## 发布地址
+| 扩展规则 | 用途/证据 | 可信度与边界 | iOS 实测 |
+| --- | --- | --- | --- |
+| DOMAIN-SUFFIX,cdn.lloydsbanking.com | 当前登录、授权和 API DNS 指向此银行 CDN 子树，共记录 6 个目标主机 | 银行 CDN 关联高；可能跨集团品牌，不是整个 lloydsbanking.com 后缀；CNAME 本身不证明 App 直接请求这些目标 | 无 |
+| DOMAIN,optimisation.data.lloydsbankinggroup.com | 公开爬虫记录个人网银的内容交付请求；DNS 指向 Adobe 租户 | 网页用途关联中；不扩大为整个集团后缀 | 无 |
+| DOMAIN,lloydsbankinggroup.tt.omtrdc.net | DNS 租户关联、AdGuard 精确例外和 App 设备认证故障报告 | 中；已知 Android/未注明平台的报告，不能外推为 iOS 已验证 | 无 |
+| DOMAIN,bf10006sbr.bf.dynatrace.com | 当前银行官方登录 HTML 的 script 引用，另有爬虫数据交叉线索 | 当前网页关联中；只纳入具体租户，未纳入供应商共享后缀或 js-cdn 主机 | 无 |
 
-已发布到独立公开仓库：[daixianglong199-dotcom/lloyds-rules](https://github.com/daixianglong199-dotcom/lloyds-rules)。[正式 Raw 订阅](https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list) 已通过匿名 HTTP 200 和本地内容一致性检查，记录见 [VALIDATION.md](VALIDATION.md)。
+`lloydsbanking.com` 的证据已超过邮件用途，但只提升其 CDN 子树。`lloydsbankinggroup.com` 发现真实网页交付主机，但只提升该具体主机。集团根后缀仍不订阅。
 
-```text
-https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list
-```
+## Loon 导入：使用现有 Kraken英国固定
 
-不要订阅 `candidates.list`；它全部为注释，候选不会自动合并到正式文件。
+已只读检查原有 `Loon-Main.lcf` 和 `Loon-Main.GitHub.lcf`：两者都存在 `Kraken英国固定 = select,英国节点`；`英国节点` 是英国节点名称筛选。这里只验证配置定义，未确认手机当前选中节点的实际地理出口。
 
-## Loon 导入
-
-1. 在 Loon 中确认一个现有英国节点或策略组的准确名称，并选好实际英国出口。本文不创建策略组，也不修改你的本地配置。
-2. 在规则订阅界面添加上方 Raw URL，指定该策略；或手动把下面一行合并到现有 `[Remote Rule]` 段。
-3. 将 `你的英国策略实际名称` 替换成 Loon 中已有名称，保留其大小写、空格及符号。
-4. 更新订阅，在规则模式下确认加载 3 条有效规则。先查看已有本地规则是否提前匹配；在远程集合中使本规则优先于存在重叠的地区、广告拦截或金融集合。Loon 按实际优先级决定命中，仅移动远程行不保证覆盖本地规则。
-5. 依次测试登录、账户概览、交易记录、银行卡管理，并查看实际命中规则、策略和出口。不要为了测试进行真实付款。
+1. 在 Loon 的现有 `Kraken英国固定` 策略里选好实际英国节点。该组与 Kraken 共用，切换组内节点会同时影响使用该组的服务。
+2. 将下面两行合并到已有 `[Remote Rule]` 段。仅需要核心时，不添加扩展行，或将其 `enabled` 改为 `false`。不要重复创建同名段或覆盖主配置。
+3. 更新订阅，核心应加载 3 条、扩展加载 4 条。检查已有本地规则/拦截是否提前命中；相同策略下两集合没有重复或后缀冗余。
+4. 在规则模式下依次检查登录、账户概览、交易记录、银行卡管理的命中域名、策略和出口；不为测试发起真实付款。
 
 ```ini
 [Remote Rule]
-https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list, policy=你的英国策略实际名称, tag=Lloyds-UK, enabled=true
+https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list, policy=Kraken英国固定, tag=Lloyds-UK, enabled=true
+https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK-Extended.list, policy=Kraken英国固定, tag=Lloyds-UK-Extended, enabled=true
 ```
 
-格式依据 [Loon 规则订阅文档](https://nsloon.app/docs/Rule/sub_rule/) 和 [官方示例配置](https://github.com/Loon0x00/LoonExampleConfig/blob/master/example.conf)。文件是原生逐行规则，不是 Clash YAML 或完整 Loon 配置。
+[可复制配置片段](Loon-RemoteRule.example.conf)。配置格式参考 [Loon 订阅文档](https://nsloon.app/docs/Rule/sub_rule/) 与 [官方示例](https://github.com/Loon0x00/LoonExampleConfig/blob/master/example.conf)。这里的 `Kraken英国固定` 已通过本地配置核实，不是占位符。
 
-## 安全服务与冲突
+## 覆盖数字应如何理解
 
-本规则只选择连接出口，不阻断、不改写、不解密请求，不改变目标域名、证书或身份验证。没有 MITM、请求重写、风控/设备检测绕过，也没有 IP、进程、UA 或关键词规则。
+审计表共 **65 个去重域名/主机/规则基域条目**，涉及 **17 个可注册域名**；这是研究清单，不是 65 个已确认 iOS 依赖。
 
-`amazontrust.com`、`online-metrix.net` 等未加入本规则，继续由现有配置处理；“未加入”不表示拒绝。现有广告拦截、DNS 拦截、本地 `REJECT` 或更早规则仍可能阻断认证和证书检查。本项目没有检查你的完整活动配置，不能保证它们已放行。遇到问题，先看命中记录；确认具体主机和用途后再做最小范围例外，不要放行整个共享后缀，更不要屏蔽银行安全检测来尝试登录。
+- 核心匹配 26 个审计条目，包含已确认授权/OIDC/API 和本就位于银行后缀下的网页/资源主机。
+- 扩展新增匹配 10 个条目：6 个 CDN 目标、CDN 子后缀基域本身，以及 3 个具体服务主机。
+- 8 个未覆盖候选；另有 21 个共享服务根域、其他品牌/沙箱主机或被主动限定的集团根域，故意不匹配。
+- 实际生效匹配表达式共 7 条：**4 条独立 DOMAIN-SUFFIX + 3 条 DOMAIN**，不是 7 个完整供应商/集团后缀。
 
-## 日志增量核查
+[逐条审计](domain-audit.md)、[机器可检查统计](coverage-summary.json)、[固定来源与分层决定](sources.json) 保持一致。重复列出已有后缀覆盖的 api/mobile/authorise/secure-api 不会提高覆盖率。
 
-不需要 HTTPS 解密。保持银行正常安全流程，只在设备本地查看 Loon 的连接域名、命中策略、连接结果和功能发生顺序。分别记录登录、账户、交易记录、银行卡管理；以空闲阶段和其他 App 的连接作对照，避免把后台流量算作 Lloyds。
+## 安全、范围与未覆盖项
 
-分享前在本地人工脱敏，仅保留经审查的主机名和非敏感功能标签/成功失败结果。不要提供或提交原始日志、URL 路径与查询、Cookie、Token、Authorization、请求体、卡号、账号、姓名、设备标识及其他个人信息。域名标签本身若含用户/设备标识，也须删去。
+不使用关键词、IP、进程、UA、MITM、证书解密、脚本或请求改写。没有任何 REJECT 规则。扩展中的监控/交付域只改变连接出口，不绕过设备验证，也不保证消除认证故障。
 
-可把审核后的纯主机名单保存在仓库内被忽略的 `hosts.local.txt`，每行一个主机，不接受 URL、CSV、请求头或完整日志：
+未加入规则的请求继续服从现有配置，**不代表被本项目拦截**。DNS 上游拦截、本地 REJECT 或更优先规则仍可能阻断安全请求；新增路由不能修复上游的零地址解析。需看命中与解析结果，再对实际误拦截的具体主机做最小范围处理，不放行整个共享服务后缀。
+
+域名路由无法区分请求来自哪个 App。核心也覆盖银行商业/内容子域；扩展 CDN 和集团租户可能被 Halifax、Bank of Scotland 等品牌共用。没有添加这些品牌的自有域名，但不能承诺按 App 完全隔离。
+
+`h-lloydsbank.online-metrix.net` 仍是候选：CNAME 记录只证明与 `check2.lloydsbank.co.uk` 有关联，后者已在核心覆盖，尚缺 iOS 直接请求或必要性证据。`lloydsbank.info` 没有核实官方归属，继续隔离。候选清单全为注释，任何候选都不会自动进入两个订阅文件。
+
+## 验证及日志增量
+
+在仓库根目录运行 `node validate.mjs`。它检查两集合单独及合并后的语法、去重/覆盖、审计一致性、候选隔离、统计及订阅策略。实际测试结果和发布状态见 [VALIDATION.md](VALIDATION.md)。
+
+本项目没有登录用户银行账户，也没有真实 iOS 业务抓包。公开 Apple 元数据及银行 AASA 能确认 App 与网站关联，不能代替原生网络测试。
+
+后续在手机本地按登录、账户、交易记录和银行卡管理分阶段观察 Loon 连接，不启用 HTTPS 解密。以空闲及其他 App 阶段作对照，避免后台流量混入。分享前人工脱敏，只保留纯主机名、非敏感阶段及连接成功/失败。不要上传 Cookie、Token、URL 路径/查询、请求头/体、卡号、账号、身份资料或设备标识；主机标签若含标识也须删除。
+
+可把已审查的每行一个纯主机名存为被忽略的 `hosts.local.txt`，运行：
 
 ```powershell
 node validate.mjs --hosts hosts.local.txt
 ```
 
-工具完全离线，只输出已覆盖、待审查、未分类主机；不自动追加任何规则。未分类不等于必需。新增正式主机前须核实归属、业务阶段、可重复性、是否被现有后缀覆盖，以及是否被其他 App 共用；第三方优先采用 `DOMAIN` 精确主机。然后人工更新正式文件、审计记录、来源清单和检查报告，再单独提交。
+工具完全离线，分别输出核心覆盖、扩展覆盖、候选、已知但未路由、未分类。它不改写任何规则；未知主机仍需核实用途与共享性，再人工调整。
 
-## 回滚与发布
+## 回滚与维护
 
-临时回滚可将这条订阅设为 `enabled=false`。版本回滚应使用 `git revert <本任务提交SHA>` 并正常推送，避免强推改写历史；也可把 Raw URL 的 `main` 换为已经验证的历史提交 SHA 固定订阅版本。
-
-只有在以 `daixianglong199-dotcom` 登录并确认有该仓库创建/推送权限后，才发布到目标仓库。仓库应为公开仓库，才能提供无需 Token 的 Loon 订阅。账号操作步骤见 [VALIDATION.md](VALIDATION.md)。
+临时回滚可单独禁用扩展订阅；核心地址保持兼容。每个已发布提交均可将 Raw URL 中的 `main` 换为提交 SHA 固定版本。仓库维护采用正常提交/`git revert`，不强推改写历史；不创建新仓库或改动 Kraken、WorldFirst 项目。
