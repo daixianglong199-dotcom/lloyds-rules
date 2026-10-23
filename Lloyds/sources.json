@@ -1,5 +1,5 @@
 {
-  "schema_version": 2,
+  "schema_version": 3,
   "reviewed_on": "2026-10-23",
   "dns_observations": {
     "id": "D2",
@@ -989,7 +989,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "analytics.data.lloydsbankinggroup.com",
@@ -1003,7 +1004,8 @@
       "confidence": "medium-web-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "answers.lloydsbank.com",
@@ -1016,7 +1018,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "api.lloydsbank.co.uk",
@@ -1029,7 +1032,8 @@
       "confidence": "low-current-usage",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "apply.lloydsbank.co.uk",
@@ -1042,7 +1046,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "as.aspsp.sandbox.lloydsbanking.com",
@@ -1055,7 +1060,8 @@
       "confidence": "high-sandbox-purpose",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "authorise-api.lloydsbank.co.uk",
@@ -1069,7 +1075,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "authorise.lloydsbank.co.uk",
@@ -1083,7 +1090,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "bcdn-16c9d93d.lloydsbank.co.uk",
@@ -1096,12 +1104,13 @@
       "confidence": "high-current-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "bf10006sbr.bf.dynatrace.com",
       "classification": "C",
-      "decision": "extension",
+      "decision": "formal",
       "role": "Specific monitoring tenant embedded in the current personal login HTML",
       "sources": [
         "O10",
@@ -1113,7 +1122,8 @@
       "layer": "extension",
       "reason": "Exact host from official HTML, not a guessed tenant or whole vendor suffix. Native iOS use untested.",
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "branches.lloydsbank.com",
@@ -1126,7 +1136,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "cbcdn.lloydsbank.com",
@@ -1140,12 +1151,13 @@
       "confidence": "medium-CNAME-association",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "cdn.lloydsbanking.com",
       "classification": "A",
-      "decision": "extension",
+      "decision": "formal",
       "role": "Bank CDN namespace used by current personal login, consent and API CNAMEs",
       "sources": [
         "O2",
@@ -1158,7 +1170,8 @@
       "layer": "extension",
       "reason": "A scoped bank-controlled CDN subtree; DNS alone does not prove the native App requests the alias targets.",
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "check2.lloydsbank.co.uk",
@@ -1172,7 +1185,8 @@
       "confidence": "medium-CNAME-association",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "cib.currency.lloydsbank.com",
@@ -1186,7 +1200,8 @@
       "confidence": "medium-CNAME-association",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "cm.everesttech.net",
@@ -1200,7 +1215,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "data.lloydsbankinggroup.com.data.adobedc.net",
@@ -1213,7 +1229,8 @@
       "confidence": "medium-alias-only",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "demdex.net",
@@ -1227,7 +1244,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "developer.lloydsbanking.com",
@@ -1241,7 +1259,8 @@
       "confidence": "high-development-purpose",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "dynatrace.com",
@@ -1257,7 +1276,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "ela1.bankofscotland.co.uk",
@@ -1271,7 +1291,8 @@
       "confidence": "high-other-brand",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloyds-cib.online-metrix.net",
@@ -1285,7 +1306,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloyds-soc.online-metrix.net",
@@ -1299,7 +1321,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloydsbank.online-metrix.net",
@@ -1313,7 +1336,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloydsboscorporate.online-metrix.net",
@@ -1327,7 +1351,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloydscorporate.online-metrix.net",
@@ -1341,7 +1366,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "h-lloydslink.online-metrix.net",
@@ -1355,7 +1381,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "home-quote.lloydsbank.com",
@@ -1368,7 +1395,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "js-cdn.dynatrace.com",
@@ -1381,7 +1409,8 @@
       "confidence": "high-shared-service",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lab4.lloydsbank.com",
@@ -1395,7 +1424,8 @@
       "confidence": "medium-CNAME-association",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "lloydsbank-online.co.uk",
@@ -1410,7 +1440,8 @@
       "layer": "core",
       "confidence": "high-ownership",
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "lloydsbank.co.uk",
@@ -1430,7 +1461,8 @@
       "layer": "core",
       "confidence": "high-ownership",
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "lloydsbank.com",
@@ -1449,7 +1481,8 @@
       "layer": "core",
       "confidence": "high-ownership",
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "lloydsbank.info",
@@ -1464,7 +1497,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lloydsbanking.com",
@@ -1473,12 +1507,13 @@
       "sources": [
         "O5"
       ],
-      "reason": "Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the extension; no blanket group suffix.",
+      "reason": "Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the unified formal rule set; no blanket group suffix.",
       "ios_tested": false,
       "layer": null,
       "confidence": "high-ownership",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lloydsbankinggroup.com",
@@ -1489,12 +1524,13 @@
         "S3",
         "O4"
       ],
-      "reason": "Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the extension; no blanket group suffix.",
+      "reason": "Official group namespace. Only the reviewed CDN subtree or delivery host is enabled in the unified formal rule set; no blanket group suffix.",
       "ios_tested": false,
       "layer": null,
       "confidence": "high-ownership",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lloydsbankinggroup.d3.sc.omtrdc.net",
@@ -1507,12 +1543,13 @@
       "confidence": "low-retracted-report",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lloydsbankinggroup.tt.omtrdc.net",
       "classification": "C",
-      "decision": "extension",
+      "decision": "formal",
       "role": "Adobe Target tenant implicated in bank App device-authentication availability",
       "sources": [
         "R10",
@@ -1526,7 +1563,8 @@
       "layer": "extension",
       "reason": "Exact tenant only. Android/unspecified-platform reports and maintainer exception; no iOS necessity proof.",
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "logs-16c9d93d.lloydsbank.co.uk",
@@ -1539,7 +1577,8 @@
       "confidence": "medium-web-observed",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "lp-01.asynchronousmessaging.dashboard.co.uk",
@@ -1552,7 +1591,8 @@
       "confidence": "medium-web-observed",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lp-07.asynchronousmessaging.dashboard.co.uk",
@@ -1565,7 +1605,8 @@
       "confidence": "medium-web-observed",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "lpcdn.asynchronousmessaging.dashboard.co.uk",
@@ -1578,7 +1619,8 @@
       "confidence": "medium-web-observed",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "matls.as.aspsp.sandbox.lloydsbanking.com",
@@ -1591,7 +1633,8 @@
       "confidence": "high-sandbox-purpose",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "matls.rs.aspsp.sandbox.lloydsbanking.com",
@@ -1604,7 +1647,8 @@
       "confidence": "high-sandbox-purpose",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "mobile.lloydsbank.co.uk",
@@ -1617,7 +1661,8 @@
       "confidence": "low-current-usage",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "mortgages.secure.lloydsbank.co.uk",
@@ -1630,7 +1675,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "omtrdc.net",
@@ -1644,7 +1690,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "online-metrix.net",
@@ -1660,7 +1707,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "online.lloydsbank.co.uk",
@@ -1674,7 +1722,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "onlinebusiness.lloydsbank.co.uk",
@@ -1687,12 +1736,13 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "optimisation.data.lloydsbankinggroup.com",
       "classification": "A",
-      "decision": "extension",
+      "decision": "formal",
       "role": "Group content/personalisation delivery seen on the personal login site",
       "sources": [
         "R4",
@@ -1705,7 +1755,8 @@
       "layer": "extension",
       "reason": "Web crawler records requests from online.lloydsbank.co.uk; no iOS request capture.",
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s10190.cdn.lloydsbanking.com",
@@ -1718,7 +1769,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s13966.cdn.lloydsbanking.com",
@@ -1731,7 +1783,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s16370.cdn.lloydsbanking.com",
@@ -1744,7 +1797,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s3031.cdn.lloydsbanking.com",
@@ -1757,7 +1811,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s37706.cdn.lloydsbanking.com",
@@ -1770,7 +1825,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "s5933.cdn.lloydsbanking.com",
@@ -1783,7 +1839,8 @@
       "confidence": "high-CDN-association",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": true
+      "extension_covered": true,
+      "formal_covered": true
     },
     {
       "domain": "secure-api-eidas.lloydsbank.com",
@@ -1797,7 +1854,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "secure-api.lloydsbank.com",
@@ -1811,7 +1869,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "threatmetrix.com",
@@ -1825,7 +1884,8 @@
       "layer": null,
       "confidence": "association-only",
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     },
     {
       "domain": "wup-16c9d93d.lloydsbank.co.uk",
@@ -1838,7 +1898,8 @@
       "confidence": "high-current-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "ww9.lloydsbank.com",
@@ -1852,7 +1913,8 @@
       "confidence": "medium-CNAME-association",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "www.investments.lloydsbank.com",
@@ -1865,7 +1927,8 @@
       "confidence": "high-web-reference",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "www.lloydsbank.com",
@@ -1880,7 +1943,8 @@
       "confidence": "high-official-purpose",
       "ios_tested": false,
       "core_covered": true,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": true
     },
     {
       "domain": "zn3wyma4xs4oqh2ct-lloydsbankinggroup.siteintercept.qualtrics.com",
@@ -1893,10 +1957,11 @@
       "confidence": "low-retracted-report",
       "ios_tested": false,
       "core_covered": false,
-      "extension_covered": false
+      "extension_covered": false,
+      "formal_covered": false
     }
   ],
-  "review_revision": "2026-10-23-extension-review",
+  "review_revision": "2026-10-23-single-subscription",
   "public_issue_sources": [
     {
       "id": "R11",
@@ -1920,7 +1985,16 @@
   "counting_method": "Unique reviewed FQDN strings, including rule bases, candidates and explicitly excluded service roots. This is a review inventory, not a native App dependency count.",
   "selection_policy": {
     "core": "Official Lloyds bank namespaces with personal banking/consent evidence",
-    "extension": "Opt-in narrow bank CDN namespace or exact web/App-associated service hosts. Evidence need not prove iOS necessity, which remains explicitly false.",
+    "extension": "Evidence provenance only: narrow bank CDN namespace or exact web/App-associated hosts included in the single formal subscription. iOS necessity remains unverified; not an opt-in second file.",
     "candidate": "Not automatically promoted; shared/vendor/root and retracted evidence never suffice alone."
-  }
+  },
+  "subscription": {
+    "formal_file": "Lloyds/Lloyds-UK.list",
+    "raw_url": "https://raw.githubusercontent.com/daixianglong199-dotcom/lloyds-rules/main/Lloyds/Lloyds-UK.list",
+    "formal_rule_count": 7,
+    "policy": "Kraken英国固定",
+    "deprecated_compatibility_file": "Lloyds/Lloyds-UK-Extended.list",
+    "compatibility_policy": "Frozen extension-origin subset of formal rules; not a second subscription. No new domains or evidence upgrades in this merge."
+  },
+  "coverage_flags": "core_covered and extension_covered classify evidence-layer coverage, not subscription files; formal_covered is their union."
 }
