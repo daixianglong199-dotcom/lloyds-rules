@@ -1,9 +1,17 @@
-# Lloyds Bank UK personal banking - core Loon remote rule set
-# Reviewed: 2026-10-23 | Active rules: 3
-# Covers documented consent/OIDC/API hosts under the bank suffixes below.
-# Optional additive services: Lloyds-UK-Extended.list (iOS use untested).
-# Evidence and limitations: README.md, domain-audit.md, sources.json
-# No policy names, shared third-party suffixes, MITM or rewrites.
+# Lloyds Bank UK - single official Loon remote rule set
+# Reviewed: 2026-10-23 | Active rules: 7
+# Evidence layers below are provenance, not separate subscriptions.
+# No current iOS runtime verification; merging does not upgrade evidence.
+# Sources, scope and limitations: domain-audit.md, sources.json
+
+# Core provenance: official bank namespaces (3 rules)
 DOMAIN-SUFFIX,lloydsbank.co.uk
 DOMAIN-SUFFIX,lloydsbank.com
 DOMAIN-SUFFIX,lloydsbank-online.co.uk
+
+# Extension provenance: bank CDN and specific delivery/monitoring hosts (4 rules)
+# Web/DNS/historical App associations; native iOS necessity unverified.
+DOMAIN-SUFFIX,cdn.lloydsbanking.com
+DOMAIN,optimisation.data.lloydsbankinggroup.com
+DOMAIN,lloydsbankinggroup.tt.omtrdc.net
+DOMAIN,bf10006sbr.bf.dynatrace.com
