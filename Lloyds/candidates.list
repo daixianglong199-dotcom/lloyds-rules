@@ -1,0 +1,12 @@
+# REVIEW ONLY - DO NOT SUBSCRIBE - NO EXECUTABLE RULES
+# All entries are comments. Promotion requires an evidence review and a
+# separate manual change to Lloyds-UK.list and sources.json.
+# Reviewed: 2026-10-23
+#
+# A | lloydsbankinggroup.com | Official group domain; personal App need and exclusivity unconfirmed.
+# A | lloydsbanking.com | Official email domain; personal App dependency unconfirmed.
+# B | lloydsbank.info | Ownership/use unverified; appears in a brand anti-phishing pattern list.
+# C | h-lloydsbank.online-metrix.net | Public CNAME association with check2.lloydsbank.co.uk; iOS direct use unconfirmed.
+#
+# Shared service suffixes and corporate/other-bank hosts are excluded,
+# not pending executable rules. See domain-audit.md for their evidence.
