@@ -1,0 +1,545 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-23",
+  "dns_observations": {
+    "checked_on": "2026-10-23",
+    "method": "Resolve-DnsName -Type CNAME -DnsOnly using the environment resolver",
+    "records": [
+      {
+        "hostname": "online.lloydsbank.co.uk",
+        "cname": "s16370.cdn.lloydsbanking.com"
+      },
+      {
+        "hostname": "www.lloydsbank.com",
+        "cname": "s5933.cdn.lloydsbanking.com"
+      },
+      {
+        "hostname": "check2.lloydsbank.co.uk",
+        "cname": "h-lloydsbank.online-metrix.net"
+      }
+    ],
+    "limitation": "Point-in-time DNS associations only; not ownership proof on their own, direct App request evidence, or reason to add CNAME targets."
+  },
+  "target_repository": "daixianglong199-dotcom/lloyds-rules",
+  "github_sources": [
+    {
+      "id": "S1",
+      "repository": "jasonniceo/loon",
+      "path": "Lloyds.list",
+      "commit": "950aab8738f370b1d8bfd1991711413cb79668da",
+      "blob_sha": "af85782bd2e41e89117124137a380c8349bb69ee",
+      "url": "https://github.com/jasonniceo/loon/blob/950aab8738f370b1d8bfd1991711413cb79668da/Lloyds.list",
+      "relevant_lines": [
+        {
+          "line": 3,
+          "text": "DOMAIN,api.lloydsbank.co.uk"
+        },
+        {
+          "line": 4,
+          "text": "DOMAIN,online.lloydsbank.co.uk"
+        },
+        {
+          "line": 5,
+          "text": "DOMAIN,www.lloydsbank.com"
+        },
+        {
+          "line": 6,
+          "text": "DOMAIN,mobile.lloydsbank.co.uk"
+        },
+        {
+          "line": 9,
+          "text": "DOMAIN-SUFFIX,lloydsbank.co.uk"
+        },
+        {
+          "line": 10,
+          "text": "DOMAIN-SUFFIX,lloydsbank.com"
+        },
+        {
+          "line": 11,
+          "text": "DOMAIN-SUFFIX,lloydsbankinggroup.com"
+        },
+        {
+          "line": 12,
+          "text": "DOMAIN-SUFFIX,lloydsbank.info"
+        },
+        {
+          "line": 15,
+          "text": "DOMAIN-SUFFIX,lloydsbank-online.co.uk"
+        },
+        {
+          "line": 18,
+          "text": "USER-AGENT,Lloyds*"
+        },
+        {
+          "line": 19,
+          "text": "USER-AGENT,LloydsBank*"
+        },
+        {
+          "line": 20,
+          "text": "PROCESS-NAME,com.grppl.mcd.lloyds.lloydsdirectconsumer"
+        },
+        {
+          "line": 23,
+          "text": "DOMAIN-KEYWORD,lloydsbank"
+        },
+        {
+          "line": 24,
+          "text": "DOMAIN-KEYWORD,lloyds"
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "repository": "iniwex5/tools",
+      "path": "rules/UK.list",
+      "commit": "0fe27b9fc518f2c70d6345ccc5a20c6c3f04d131",
+      "blob_sha": "9a955cda505699f6517eec41d1b501914bbd3610",
+      "url": "https://github.com/iniwex5/tools/blob/0fe27b9fc518f2c70d6345ccc5a20c6c3f04d131/rules/UK.list",
+      "relevant_lines": [
+        {
+          "line": 2,
+          "text": "DOMAIN-SUFFIX, online-metrix.net"
+        },
+        {
+          "line": 29,
+          "text": "DOMAIN, barclaysuk.sc.omtrdc.net"
+        },
+        {
+          "line": 37,
+          "text": "DOMAIN-SUFFIX, lloydsbank.co.uk"
+        },
+        {
+          "line": 38,
+          "text": "DOMAIN-SUFFIX, amazontrust.com"
+        },
+        {
+          "line": 39,
+          "text": "DOMAIN-SUFFIX, dynatrace.com"
+        },
+        {
+          "line": 40,
+          "text": "DOMAIN-KEYWORD, lloydsbank"
+        },
+        {
+          "line": 44,
+          "text": "DOMAIN-SUFFIX, demdex.net"
+        },
+        {
+          "line": 45,
+          "text": "DOMAIN-SUFFIX, cm.everesttech.net"
+        },
+        {
+          "line": 46,
+          "text": "DOMAIN-SUFFIX, omtrdc.net"
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "repository": "hedrg/rules-mirror",
+      "path": "custom/uk.list",
+      "commit": "45585f484a0c6c2fba1faa4074fe0ebf269c1c05",
+      "blob_sha": "e94fbcc7817c2c5bff4e76f765282e3f1b73d243",
+      "url": "https://github.com/hedrg/rules-mirror/blob/45585f484a0c6c2fba1faa4074fe0ebf269c1c05/custom/uk.list",
+      "relevant_lines": [
+        {
+          "line": 14,
+          "text": "DOMAIN-SUFFIX,lloydsbank.com"
+        },
+        {
+          "line": 15,
+          "text": "DOMAIN-SUFFIX,lloydsbank.co.uk"
+        },
+        {
+          "line": 16,
+          "text": "DOMAIN-SUFFIX,lloydsbankinggroup.com"
+        },
+        {
+          "line": 17,
+          "text": "DOMAIN-KEYWORD,lloydsbank"
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "repository": "KujouYuko/ClashRules",
+      "path": "Clash/Rules/UKBank.list",
+      "commit": "e399fe98be85ba102042d8b854f7cef01627052b",
+      "blob_sha": "56cb07da4b254d6322343f829e635f5e7dbde7a7",
+      "url": "https://github.com/KujouYuko/ClashRules/blob/e399fe98be85ba102042d8b854f7cef01627052b/Clash/Rules/UKBank.list",
+      "relevant_lines": [
+        {
+          "line": 20,
+          "text": "DOMAIN-SUFFIX,lloydsbank.co.uk"
+        },
+        {
+          "line": 21,
+          "text": "DOMAIN-SUFFIX,lloydsbank.com"
+        }
+      ]
+    },
+    {
+      "id": "S5",
+      "repository": "AdguardTeam/cname-trackers",
+      "path": "data/trackers/lexisnexis-risk-solutions.md",
+      "commit": "d519e17ee10e2d1c5b2762a78a8e11ec2b38ce5a",
+      "blob_sha": "9784fb7d55b7a0dad1c1414082532f9457bd9a1f",
+      "url": "https://github.com/AdguardTeam/cname-trackers/blob/d519e17ee10e2d1c5b2762a78a8e11ec2b38ce5a/data/trackers/lexisnexis-risk-solutions.md",
+      "relevant_lines": [
+        {
+          "line": 2137,
+          "text": "| cib.currency.lloydsbank.com | h-lloyds-cib.online-metrix.net |"
+        },
+        {
+          "line": 2138,
+          "text": "| cbcdn.lloydsbank.com | h-lloyds-soc.online-metrix.net |"
+        },
+        {
+          "line": 2139,
+          "text": "| check2.lloydsbank.co.uk | h-lloydsbank.online-metrix.net |"
+        },
+        {
+          "line": 2140,
+          "text": "| ela1.bankofscotland.co.uk | h-lloydsboscorporate.online-metrix.net |"
+        },
+        {
+          "line": 2141,
+          "text": "| ww9.lloydsbank.com | h-lloydscorporate.online-metrix.net |"
+        },
+        {
+          "line": 2142,
+          "text": "| lab4.lloydsbank.com | h-lloydslink.online-metrix.net |"
+        }
+      ]
+    },
+    {
+      "id": "S6",
+      "repository": "liandu2024/clash",
+      "path": "list/wv/uk.list",
+      "commit": "681d30136e2d9b79fc93d310638cb7eca1e236e9",
+      "blob_sha": "ca67f2c919e019cbbbfe53db68138dd1e961bd53",
+      "url": "https://github.com/liandu2024/clash/blob/681d30136e2d9b79fc93d310638cb7eca1e236e9/list/wv/uk.list",
+      "relevant_lines": [
+        {
+          "line": 7,
+          "text": "DOMAIN-SUFFIX,lloydsbank.com"
+        }
+      ]
+    },
+    {
+      "id": "S7",
+      "repository": "xOS/Config",
+      "path": "RuleSet/UKOnly.list",
+      "commit": "58faa924d420f9ee67ae53df122569d07891f6d8",
+      "blob_sha": "eef709bd60307a8942f461aae0e13765c332022d",
+      "url": "https://github.com/xOS/Config/blob/58faa924d420f9ee67ae53df122569d07891f6d8/RuleSet/UKOnly.list",
+      "relevant_lines": [
+        {
+          "line": 29,
+          "text": "DOMAIN-KEYWORD,lloydsbank"
+        }
+      ]
+    },
+    {
+      "id": "S8",
+      "repository": "m0zgen/dns-hole",
+      "path": "regex/common-wl.txt",
+      "commit": "de76599989d2b1f803fa1d3b699fbe956e1a9602",
+      "blob_sha": "3f74d8e862c36809b9249a04ab9352bdc7ecbf16",
+      "url": "https://github.com/m0zgen/dns-hole/blob/de76599989d2b1f803fa1d3b699fbe956e1a9602/regex/common-wl.txt",
+      "relevant_lines": [
+        {
+          "line": 67,
+          "text": "/(?:^|\\.)lloydsbank.co.uk$/"
+        },
+        {
+          "line": 68,
+          "text": "/(?:^|\\.)lloydsbank.com$/"
+        },
+        {
+          "line": 85,
+          "text": "/(?:^|\\.)dynatrace\\.com$/"
+        }
+      ]
+    },
+    {
+      "id": "S9",
+      "repository": "gdelmas/LloydsBank-MoneyMoney",
+      "path": "Lloyds Bank UK.lua",
+      "commit": "ac8dc1743455439233bdfad0c0241dbda03e7f78",
+      "blob_sha": "6067010a2d2562f6fe5426400473f88d52cf232d",
+      "url": "https://github.com/gdelmas/LloydsBank-MoneyMoney/blob/ac8dc1743455439233bdfad0c0241dbda03e7f78/Lloyds%20Bank%20UK.lua",
+      "relevant_lines": [
+        {
+          "line": 5,
+          "text": "url         = \"https://online.lloydsbank.co.uk/personal/logon/login.jsp\","
+        }
+      ]
+    },
+    {
+      "id": "S10",
+      "repository": "chartingshow/crypto-firewall",
+      "path": "src/blacklists/bank-phishing-filters/lloydsbank-com/adblock-list.txt",
+      "commit": "fce2dd55bb73722d4111f97a42c73bc150163ded",
+      "blob_sha": "1bcf85dbc151bf7e1c1a77de3f19e5725dbbba2b",
+      "url": "https://github.com/chartingshow/crypto-firewall/blob/fce2dd55bb73722d4111f97a42c73bc150163ded/src/blacklists/bank-phishing-filters/lloydsbank-com/adblock-list.txt",
+      "relevant_lines": [
+        {
+          "line": 287,
+          "text": "||lloydsbank.info^"
+        }
+      ]
+    }
+  ],
+  "official_sources": [
+    {
+      "id": "O1",
+      "url": "https://www.lloydsbank.com/help-guidance/everyday-banking/mobile-banking-app.html",
+      "finding": "Lloyds 官方个人 Mobile Banking App 介绍；证明官网归属与业务背景，未提供完整 API 清单。"
+    },
+    {
+      "id": "O2",
+      "url": "https://www.lloydsbank.com/help-guidance/everyday-banking/getting-online/log-in.html",
+      "finding": "官方个人登录链接指向 online.lloydsbank.co.uk。"
+    },
+    {
+      "id": "O3",
+      "url": "https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/authorised-push-payment-scams.html",
+      "finding": "Open Banking 段明确说明授权跳转使用 lloydsbank-online.co.uk。"
+    },
+    {
+      "id": "O4",
+      "url": "https://www.lloydsbankinggroup.com/",
+      "finding": "集团官方站；集团覆盖多个品牌，不能由集团归属推导 Lloyds App 独占。"
+    },
+    {
+      "id": "O5",
+      "url": "https://www.lloydsbank.com/help-guidance/protecting-yourself-from-fraud/scam-messages.html",
+      "finding": "官方反诈骗收件地址位于 lloydsbanking.com；邮件证据不等同于 App 网络依赖。"
+    },
+    {
+      "id": "O6",
+      "url": "https://www.dynatrace.com/news/press-release/dynatrace-teams-with-lloyds-banking-group-to-reduce-it-carbon-emissions/",
+      "finding": "供应商确认集团 IT 合作；未公开个人 iOS App 专用接收主机名。"
+    },
+    {
+      "id": "O7",
+      "url": "https://docs.aws.amazon.com/acm/latest/userguide/acm-certificate-characteristics.html",
+      "finding": "amazontrust.com 用于共享证书吊销检查 OCSP/CRL；非 Lloyds 独占服务。"
+    },
+    {
+      "id": "O8",
+      "url": "https://risk.lexisnexis.com/products/threatmetrix",
+      "finding": "跨客户共享的数字身份与反欺诈产品；不能整体纳入单一银行规则。"
+    },
+    {
+      "id": "L1",
+      "url": "https://nsloon.app/docs/Rule/domain_rule/",
+      "finding": "Loon DOMAIN / DOMAIN-SUFFIX 语法及后缀边界。"
+    },
+    {
+      "id": "L2",
+      "url": "https://nsloon.app/docs/Rule/sub_rule/",
+      "finding": "远程规则文件每行使用 Loon 支持的规则语法。"
+    },
+    {
+      "id": "L3",
+      "url": "https://github.com/Loon0x00/LoonExampleConfig/blob/master/example.conf",
+      "blob_sha": "754cf62a2a11105c601aff595f11f4c259568894",
+      "finding": "官方示例 [Remote Rule] 使用 URL,policy=PROXY,enabled=true。"
+    }
+  ],
+  "domain_decisions": [
+    {
+      "domain": "lloydsbank.co.uk",
+      "classification": "A",
+      "decision": "formal",
+      "rule_type": "DOMAIN-SUFFIX",
+      "sources": [
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S8",
+        "S9",
+        "O2"
+      ]
+    },
+    {
+      "domain": "lloydsbank.com",
+      "classification": "A",
+      "decision": "formal",
+      "rule_type": "DOMAIN-SUFFIX",
+      "sources": [
+        "S1",
+        "S3",
+        "S4",
+        "S6",
+        "S8",
+        "O1"
+      ]
+    },
+    {
+      "domain": "lloydsbank-online.co.uk",
+      "classification": "A",
+      "decision": "formal",
+      "rule_type": "DOMAIN-SUFFIX",
+      "sources": [
+        "S1",
+        "O3"
+      ]
+    },
+    {
+      "domain": "lloydsbankinggroup.com",
+      "classification": "A",
+      "decision": "candidate",
+      "sources": [
+        "S1",
+        "S3",
+        "O4"
+      ],
+      "reason": "官方集团域名，但 App 必需性、专属性均不足。"
+    },
+    {
+      "domain": "lloydsbanking.com",
+      "classification": "A",
+      "decision": "candidate",
+      "sources": [
+        "O5"
+      ],
+      "reason": "官方邮件用途已确认；个人 App 依赖未确认。"
+    },
+    {
+      "domain": "lloydsbank.info",
+      "classification": "B",
+      "decision": "candidate",
+      "sources": [
+        "S1",
+        "S10"
+      ],
+      "reason": "归属/用途未获官方证实；另在品牌防钓鱼模式列表出现，不能仅凭名单定性恶意。"
+    },
+    {
+      "domain": "h-lloydsbank.online-metrix.net",
+      "classification": "C",
+      "decision": "candidate",
+      "sources": [
+        "S5"
+      ],
+      "reason": "CNAME 数据显示对应 check2.lloydsbank.co.uk；尚无个人 iOS App 直接请求/必要性证据。"
+    },
+    {
+      "domain": "h-lloyds-cib.online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S5"
+      ],
+      "reason": "企业/其他品牌上下文，不能当作个人 App 依赖。"
+    },
+    {
+      "domain": "h-lloyds-soc.online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S5"
+      ],
+      "reason": "企业/其他品牌上下文，不能当作个人 App 依赖。"
+    },
+    {
+      "domain": "h-lloydscorporate.online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S5"
+      ],
+      "reason": "企业/其他品牌上下文，不能当作个人 App 依赖。"
+    },
+    {
+      "domain": "h-lloydslink.online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S5"
+      ],
+      "reason": "企业/其他品牌上下文，不能当作个人 App 依赖。"
+    },
+    {
+      "domain": "h-lloydsboscorporate.online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S5"
+      ],
+      "reason": "企业/其他品牌上下文，不能当作个人 App 依赖。"
+    },
+    {
+      "domain": "amazontrust.com",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2",
+        "O7"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "dynatrace.com",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2",
+        "S8",
+        "O6"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "online-metrix.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2",
+        "S5",
+        "O8"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "threatmetrix.com",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "O8"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "demdex.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "cm.everesttech.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    },
+    {
+      "domain": "omtrdc.net",
+      "classification": "C",
+      "decision": "excluded",
+      "sources": [
+        "S2"
+      ],
+      "reason": "共享服务后缀，缺少可限定 Lloyds 个人 App 的主机证据，不订阅、不阻断。"
+    }
+  ]
+}
